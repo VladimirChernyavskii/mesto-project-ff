@@ -1,31 +1,37 @@
 export const initialCards = [
-    {
-      name: "Архыз",
-      link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-    },
-    {
-      name: "Челябинская область",
-      link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-    },
-    {
-      name: "Иваново",
-      link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-    },
-    {
-      name: "Камчатка",
-      link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-    },
-    {
-      name: "Холмогорский район",
-      link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-    },
-    {
-      name: "Байкал",
-      link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-    }
+  {
+    name: "Архыз",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
+  },
+  {
+    name: "Челябинская область",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
+  },
+  {
+    name: "Иваново",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
+  },
+  {
+    name: "Камчатка",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
+  },
+  {
+    name: "Холмогорский район",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
+  },
+  {
+    name: "Байкал",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
+  },
 ];
 
-export function createCard(title, link, deleteHandler, likeHandler, addToBegin = false) {
+export function createCard(
+  title,
+  link,
+  deleteHandler,
+  likeHandler,
+  addToBegin = false
+) {
   const cardContainer = document.querySelector(".places__list");
   const cardTemplate = document.querySelector("#card-template").content;
 
@@ -39,7 +45,7 @@ export function createCard(title, link, deleteHandler, likeHandler, addToBegin =
 
   deleteButton.addEventListener("click", deleteHandler);
 
-  const likeButton =cardElement.querySelector(".card__like-button");
+  const likeButton = cardElement.querySelector(".card__like-button");
   likeButton.addEventListener("click", likeHandler);
 
   if (addToBegin) cardContainer.prepend(cardElement);
@@ -51,7 +57,7 @@ export function deleteCard(event) {
   listItem.remove();
 }
 
-export function likeCard(event){
-  const likeButton = event.target.closest(".card__like-button")
-  likeButton.classList.toggle('card__like-button_is-active');
+export function likeCard(event) {
+  const likeButton = event.target.closest(".card__like-button");
+  likeButton.classList.toggle("card__like-button_is-active");
 }
