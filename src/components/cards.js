@@ -25,7 +25,7 @@ export const initialCards = [
     }
 ];
 
-export function createCard(title, link, deleteHandler) {
+export function createCard(title, link, deleteHandler, addToBegin = false) {
   const cardContainer = document.querySelector(".places__list");
   const cardTemplate = document.querySelector("#card-template").content;
 
@@ -39,7 +39,8 @@ export function createCard(title, link, deleteHandler) {
 
   deleteButton.addEventListener("click", deleteHandler);
 
-  cardContainer.append(cardElement);
+  if (addToBegin) cardContainer.prepend(cardElement);
+  else cardContainer.append(cardElement);
 }
 
 export function deleteCard(event) {

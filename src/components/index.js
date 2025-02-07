@@ -62,8 +62,10 @@ document.addEventListener("keydown", function (event) {
 
 
 
+const formEditProfile = document.forms['edit-profile'];
+formEditProfile.addEventListener('submit', handleProfileFormSubmit);
 
-function handleFormSubmit(evt) {
+function handleProfileFormSubmit(evt) {
     evt.preventDefault();
     
     const nameInput = formEditProfile.name.value;
@@ -77,5 +79,20 @@ function handleFormSubmit(evt) {
     
 }
 
-const formEditProfile = document.forms['edit-profile'];
-formEditProfile.addEventListener('submit', handleFormSubmit);
+const formAddPlace = document.forms['new-place'];
+formAddPlace.addEventListener('submit', handlePlacesFormSubmit);
+
+function handlePlacesFormSubmit(evt){
+  evt.preventDefault();
+
+  const placeName = formAddPlace['place-name'];
+  const placeLink = formAddPlace['link'];
+  
+  createCard(placeName.value, placeLink.value, deleteCard, true);
+
+  placeName.value='';
+  placeLink.value='';
+
+  const openedPopup = document.querySelector(".popup_is-opened");
+  closeModal(openedPopup);
+}
