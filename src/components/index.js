@@ -8,12 +8,12 @@ import avatar from './../images/avatar.jpg';
 const profileImage = document.querySelector('.profile__image');
 profileImage.style.backgroundImage = `url(${avatar})`;
 
-import { initialCards,createCard, deleteCard} from './cards.js';
+import { initialCards,createCard, deleteCard, likeCard} from './cards.js';
 
 import { openModal, closeModal } from './modal.js';
 
 initialCards.forEach((element) =>
-  createCard(element.name, element.link, deleteCard)
+  createCard(element.name, element.link, deleteCard, likeCard)
 );
 
 const popupButtons = document.querySelectorAll("[data-popup]");
@@ -77,6 +77,8 @@ function handleProfileFormSubmit(evt) {
     profileName.textContent=nameInput;
     profileJob.textContent = jobInput;
     
+    const openedPopup = document.querySelector(".popup_is-opened");
+    closeModal(openedPopup);
 }
 
 const formAddPlace = document.forms['new-place'];
@@ -88,7 +90,7 @@ function handlePlacesFormSubmit(evt){
   const placeName = formAddPlace['place-name'];
   const placeLink = formAddPlace['link'];
   
-  createCard(placeName.value, placeLink.value, deleteCard, true);
+  createCard(placeName.value, placeLink.value, deleteCard, likeCard, true);
 
   placeName.value='';
   placeLink.value='';

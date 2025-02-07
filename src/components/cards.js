@@ -25,7 +25,7 @@ export const initialCards = [
     }
 ];
 
-export function createCard(title, link, deleteHandler, addToBegin = false) {
+export function createCard(title, link, deleteHandler, likeHandler, addToBegin = false) {
   const cardContainer = document.querySelector(".places__list");
   const cardTemplate = document.querySelector("#card-template").content;
 
@@ -39,6 +39,9 @@ export function createCard(title, link, deleteHandler, addToBegin = false) {
 
   deleteButton.addEventListener("click", deleteHandler);
 
+  const likeButton =cardElement.querySelector(".card__like-button");
+  likeButton.addEventListener("click", likeHandler);
+
   if (addToBegin) cardContainer.prepend(cardElement);
   else cardContainer.append(cardElement);
 }
@@ -46,4 +49,9 @@ export function createCard(title, link, deleteHandler, addToBegin = false) {
 export function deleteCard(event) {
   const listItem = event.target.closest(".places__item.card");
   listItem.remove();
+}
+
+export function likeCard(event){
+  const likeButton = event.target.closest(".card__like-button")
+  likeButton.classList.toggle('card__like-button_is-active');
 }
