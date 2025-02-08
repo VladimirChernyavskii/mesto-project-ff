@@ -26,38 +26,36 @@ export const initialCards = [
 ];
 
 export function createCard(
+  cardElement,
+  imagePopup,
   title,
   link,
+  openHandler,
   deleteHandler,
-  likeHandler,
-  addToBegin = false
+  likeHandler
 ) {
-  const cardContainer = document.querySelector(".places__list");
-  const cardTemplate = document.querySelector("#card-template").content;
-
-  const cardElement = cardTemplate.cloneNode(true);
   const deleteButton = cardElement.querySelector(".card__delete-button");
+  const cardImage = cardElement.querySelector(".card__image");
+  const likeButton = cardElement.querySelector(".card__like-button");
 
   cardElement.querySelector(".card__title").textContent = title;
-  const cardImage = cardElement.querySelector(".card__image");
+
   cardImage.src = link;
   cardImage.alt = title;
 
-  deleteButton.addEventListener("click", deleteHandler);
+  cardImage.addEventListener("click", () =>
+    openHandler(imagePopup, link, title)
+  );
+  deleteButton.addEventListener("click", () => deleteHandler(cardElement));
+  likeButton.addEventListener("click", () => likeHandler(likeButton));
 
-  const likeButton = cardElement.querySelector(".card__like-button");
-  likeButton.addEventListener("click", likeHandler);
-
-  if (addToBegin) cardContainer.prepend(cardElement);
-  else cardContainer.append(cardElement);
+  return cardElement;
 }
 
-export function deleteCard(event) {
-  const listItem = event.target.closest(".places__item.card");
-  listItem.remove();
+export function deleteCard(cardElement) {
+  cardElement.remove();
 }
 
-export function likeCard(event) {
-  const likeButton = event.target.closest(".card__like-button");
+export function likeCard(likeButton) {
   likeButton.classList.toggle("card__like-button_is-active");
 }
