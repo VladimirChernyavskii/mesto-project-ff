@@ -3,7 +3,7 @@ export function openModal(popup) {
   document.addEventListener("keydown", handleEscapeKey);
 }
 
-export function handleEscapeKey(event) {
+function handleEscapeKey(event) {
   if (event.key === "Escape") {
     const openedPopup = document.querySelector(".popup_is-opened");
     closeModal(openedPopup);
