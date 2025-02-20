@@ -129,6 +129,7 @@ function handlePlacesFormSubmit(evt) {
       cardContainer.prepend(cardElement);
       formAddPlace.reset();
 
+      clearValidation(formAddPlace, validationConfig);
       closeModal(newCardPopup);
     })
     .finally(
@@ -180,11 +181,15 @@ getInitialData()
   .catch((err) => console.log(err));
 
 function onDeleteCard(cardId, cardElement) {
-  deleteCard(cardId).then(() => removeCard(cardElement));
+  deleteCard(cardId)
+    .then(() => removeCard(cardElement))
+    .catch((err) => console.log(err));
 }
 
 function onLikeCard(likeButton, id) {
   const isLiked = likeButton.classList.contains("card__like-button_is-active");
   const likeMethod = isLiked ? removeLike : addLike;
-  likeMethod(id).then((card) => likeCard(likeButton, card.likes.length));
+  likeMethod(id)
+    .then((card) => likeCard(likeButton, card.likes.length))
+    .catch((err) => console.log(err));
 }

@@ -6,7 +6,7 @@ export function createCard(
   likeHandler,
   userId
 ) {
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  const cardElement = getCardTemplate(cardTemplate);
   const deleteButton = cardElement.querySelector(".card__delete-button");
   const cardImage = cardElement.querySelector(".card__image");
   const likeButton = cardElement.querySelector(".card__like-button");
@@ -33,13 +33,18 @@ export function createCard(
   );
 
   //отображение лайков пользователя при загрузке страницы
-  if (element.likes.length>0) {
-    element.likes.forEach(like => {
-      if (like._id===userId) likeButton.classList.toggle("card__like-button_is-active");
+  if (element.likes.length > 0) {
+    element.likes.forEach((like) => {
+      if (like._id === userId)
+        likeButton.classList.toggle("card__like-button_is-active");
     });
   }
 
   return cardElement;
+}
+
+function getCardTemplate(cardTemplate) {
+  return cardTemplate.querySelector(".card").cloneNode(true);
 }
 
 export function removeCard(cardElement) {

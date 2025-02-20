@@ -18,12 +18,15 @@ export function closeModal(popup) {
 export function initModalEventListeners() {
   const popups = document.querySelectorAll(".popup");
   popups.forEach((popup) => {
-    popup.addEventListener("click", (event) => {
-      if (event.target === popup) {
-        closeModal(popup);
-      }
-    });
-
+    popup.addEventListener("click", (event) =>
+      closeByOverlayClick(event, popup)
+    );
     popup.classList.add("popup_is-animated");
   });
+}
+
+function closeByOverlayClick(event, popup) {
+  if (event.target === popup) {
+    closeModal(popup);
+  }
 }
