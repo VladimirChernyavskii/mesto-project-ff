@@ -27,7 +27,7 @@ const profilePopup = document.querySelector(".popup_type_edit");
 const newCardPopupButton = document.querySelector(".profile__add-button");
 const newCardPopup = document.querySelector(".popup_type_new-card");
 const imagePopup = document.querySelector(".popup_type_image");
-const avatarPopupButton = document.querySelector(".profile__image")
+const avatarPopupButton = document.querySelector(".profile__image");
 const avatarPopup = document.querySelector(".popup_type_avatar");
 
 const profileName = document.querySelector(".profile__title");
@@ -69,7 +69,7 @@ profilePopupButton.addEventListener("click", () => {
 });
 
 newCardPopupButton.addEventListener("click", () => openModal(newCardPopup));
-avatarPopupButton.addEventListener('click', () => openModal(avatarPopup))
+avatarPopupButton.addEventListener("click", () => openModal(avatarPopup));
 
 function openCard(link, title) {
   popupImage.src = link;
@@ -92,17 +92,19 @@ function handleProfileFormSubmit(evt) {
   evt.preventDefault();
 
   formEditProfile.querySelector(".popup__button").textContent = "Сохранение...";
-  
-  updateUser(
-    formEditProfile.name.value,
-    formEditProfile.description.value
-  ).then(() => {
-    profileName.textContent = formEditProfile.name.value;
-    profileJob.textContent = formEditProfile.description.value;
 
-    closeModal(profilePopup);
-  })
-  .finally(()=> formEditProfile.querySelector(".popup__button").textContent= "Сохранить");
+  updateUser(formEditProfile.name.value, formEditProfile.description.value)
+    .then(() => {
+      profileName.textContent = formEditProfile.name.value;
+      profileJob.textContent = formEditProfile.description.value;
+
+      closeModal(profilePopup);
+    })
+    .finally(
+      () =>
+        (formEditProfile.querySelector(".popup__button").textContent =
+          "Сохранить")
+    );
 }
 
 function handlePlacesFormSubmit(evt) {
@@ -114,35 +116,44 @@ function handlePlacesFormSubmit(evt) {
     link: formAddPlace["link"].value,
   };
 
-  addCard(element.name, element.link).then((newCard) => {
-    const cardElement = createCard(
-      cardTemplate,
-      newCard,
-      openCard,
-      onDeleteCard,
-      onLikeCard,
-      userId
-    );
-    cardContainer.prepend(cardElement);
-    formAddPlace.reset();
+  addCard(element.name, element.link)
+    .then((newCard) => {
+      const cardElement = createCard(
+        cardTemplate,
+        newCard,
+        openCard,
+        onDeleteCard,
+        onLikeCard,
+        userId
+      );
+      cardContainer.prepend(cardElement);
+      formAddPlace.reset();
 
-    closeModal(newCardPopup);
-  })
-  .finally(()=> formAddPlace.querySelector(".popup__button").textContent= "Сохранить");;
+      closeModal(newCardPopup);
+    })
+    .finally(
+      () =>
+        (formAddPlace.querySelector(".popup__button").textContent = "Сохранить")
+    );
 }
 
-function handleAvatarFormSubmit(evt){
+function handleAvatarFormSubmit(evt) {
   evt.preventDefault();
-  formUpdateAvatar.querySelector(".popup__button").textContent = "Сохранение...";
+  formUpdateAvatar.querySelector(".popup__button").textContent =
+    "Сохранение...";
 
-  updateAvatar(formUpdateAvatar['avatar-url'].value)
-  .then(()=> {
-    profileImage.style.backgroundImage = `url(${formUpdateAvatar['avatar-url'].value})`;
+  updateAvatar(formUpdateAvatar["avatar-url"].value)
+    .then(() => {
+      profileImage.style.backgroundImage = `url(${formUpdateAvatar["avatar-url"].value})`;
 
-    formUpdateAvatar.reset();
-    closeModal(avatarPopup);
-  })
-  .finally(()=> formUpdateAvatar.querySelector(".popup__button").textContent= "Сохранить");
+      formUpdateAvatar.reset();
+      closeModal(avatarPopup);
+    })
+    .finally(
+      () =>
+        (formUpdateAvatar.querySelector(".popup__button").textContent =
+          "Сохранить")
+    );
 }
 
 enableValidation(validationConfig);
@@ -177,5 +188,3 @@ function onLikeCard(likeButton, id) {
   const likeMethod = isLiked ? removeLike : addLike;
   likeMethod(id).then((card) => likeCard(likeButton, card.likes.length));
 }
-
-
